@@ -7,6 +7,8 @@ genai_API_KEY = st.secrets["genai_API"]
 genai.configure(api_key=genai_API_KEY)
 model = genai.GenerativeModel(model_name='gemini-pro')
 
+st.session_state['output'] = "Just Refreshed"
+
 def generate_analysis(prb_desc, feat_desc, targ_desc):
     prompt = f"""
     You are an expert business data analyst. You have been tasked to analyze data from the following context (details enclosed in tripple backticks):
