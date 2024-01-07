@@ -57,5 +57,7 @@ target_variable_description = st.text_area("Describe the target variable:")
 
 if st.button('Say hello', help="Explain the details and click this button."):
     answer = retr_ans(problem_description, feature_description, target_variable_description)
-    st.write(answer)
+    st.session_state['output'] = answer
+    st.write(st.session_state.output)
+    #st.write(answer)
 
