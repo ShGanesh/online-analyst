@@ -7,7 +7,7 @@ genai_API_KEY = st.secrets["genai_API"]
 genai.configure(api_key=genai_API_KEY)
 model = genai.GenerativeModel(model_name='gemini-pro')
 
-def generate_summary(prb_desc, feat_desc, targ_desc):
+def generate_analysis(prb_desc, feat_desc, targ_desc):
     prompt = f"""
     You are an expert business data analyst. You have been tasked to analyze data from the following context (details enclosed in tripple backticks):
     ```
@@ -17,7 +17,7 @@ def generate_summary(prb_desc, feat_desc, targ_desc):
     `
     {targ_desc}
     `
-    To analyze the above data, the following features are availible to us (enclosed in double backticks):
+    To analyze the above data, the following features are available to us (enclosed in double backticks):
     ``
     {feat_desc}
     ``
@@ -41,6 +41,10 @@ def generate_summary(prb_desc, feat_desc, targ_desc):
 
     return completion.text
 
+@st.cache_data
+def retr_ans(problem_description, feature_description, target_variable_description):
+    return f"Data Summary:\n {generate_analysis(problem_description, feature_description, target_variable_description)}"
+
 st.header("Online Analyst")
 
 # Input for problem description
@@ -52,6 +56,6 @@ target_variable_description = st.text_area("Describe the target variable:")
 
 
 if st.button('Say hello', help="Explain the details and click this button."):
-    st.write(f"Data Summary:\n {generate_summary(problem_description, feature_description, target_variable_description)}")
-
+    answer = retr_ans(problem_description, feature_description, target_variable_description)
+    st.write(answer)
 
