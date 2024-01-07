@@ -41,6 +41,8 @@ def generate_summary(prb_desc, feat_desc, targ_desc):
 
     return completion.text
 
+st.header("Online Analyst")
+
 # Input for problem description
 problem_description = st.text_area("Describe the problem you're trying to solve, do provide as much context (within humane limits) as possible.", placeholder="Also write the problem context, and why you are trying to solve that particular problem.")
 # Input for features and their descriptions
